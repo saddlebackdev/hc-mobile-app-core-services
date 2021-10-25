@@ -9,7 +9,7 @@ export const login = async (
   config: any,
   storageType: string,
   cb: () => string,
-) => {
+): Promise<any> => {
   try {
     const authState = await authorize(config);
     const jwtBody = authState.idToken.split('.')[1];
@@ -32,29 +32,32 @@ export const login = async (
   }
 };
 
-export const isLoggedIn = async () => {
-  const accessToken = await getItem('accessToken', 'asyncStorage');
-  const accessTokenExpirationDate = await getItem(
-    'accessTokenExpirationDate',
-    'asyncStorage',
-  );
+export const isLoggedIn = async (): Promise<boolean> => {
+  try {
+    const accessToken = await getItem('accessToken', 'asyncStorage');
+    const accessTokenExpirationDate = await getItem(
+      'accessTokenExpirationDate',
+      'asyncStorage',
+    );
 
-  if (_.isNil(accessToken)) {
+    if (_.isNil(accessToken)) {
+      return false;
+    }
+
+    const isExpiredAccessToken = moment()
+      .utc()
+      .isAfter(accessTokenExpirationDate);
+
+    if (isExpiredAccessToken) {
+      return false;
+    }
+    return true;
+  } catch {
     return false;
   }
-
-  const isExpiredAccessToken = moment()
-    .utc()
-    .isAfter(accessTokenExpirationDate);
-
-  if (isExpiredAccessToken) {
-    return false;
-  }
-
-  return true;
 };
 
-export const logout = async (config: any, cb: () => string) => {
+export const logout = async (config: any, cb: () => string): Promise<any> => {
   try {
     let accessToken = await getItem('accessToken', 'asyncStorage');
     await revoke(config, {
@@ -78,8 +81,8 @@ export const logout = async (config: any, cb: () => string) => {
   }
 };
 
-export const getAccessToken = async () => {
-  let authToken = null;
+export const getAccessToken = async (): Promise<string | null> => {
+  let authToken: any = null;
 
   try {
     authToken = await getItem('accessToken', 'asyncStorage');
