@@ -77,3 +77,22 @@ export const logout = async (config: any, cb: () => string) => {
     return Promise.reject();
   }
 };
+
+export const getAccessToken = async () => {
+  let authToken = null;
+
+  try {
+    authToken = await getItem('accessToken', 'asyncStorage');
+  } catch (error) {
+    return null;
+  }
+
+  return authToken;
+};
+
+export default {
+  login,
+  logout,
+  isLoggedIn,
+  getAccessToken,
+};
