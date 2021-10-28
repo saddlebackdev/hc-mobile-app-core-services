@@ -137,9 +137,32 @@ export const getPermmissions = async (url: string) => {
   }
 };
 
+export const getPersonCredentials = async (url: string) => {
+  let credentials: any = null;
+  try {
+    const accessToken = await AuthService.getAccessToken();
+
+    if (!accessToken) {
+      return null;
+    }
+
+    const options = {
+      method: 'GET' as Method,
+      headers: {Authorization: `Bearer ${accessToken}`},
+      url,
+    };
+    const {data} = await request(options);
+    credentials = data;
+    return JSON.parse(credentials);
+  } catch (error) {
+    return null;
+  }
+};
+
 export default {
   getUserProfile,
   updateUserProfile,
   createUserProfile,
   getPermmissions,
+  getPersonCredentials,
 };
