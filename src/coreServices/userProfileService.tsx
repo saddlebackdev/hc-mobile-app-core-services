@@ -115,8 +115,31 @@ export const createUserProfile = async (url: string, user: User) => {
   }
 };
 
+export const getPermmissions = async (url: string) => {
+  let permissions: any = null;
+  try {
+    const accessToken = await AuthService.getAccessToken();
+
+    if (!accessToken) {
+      return null;
+    }
+
+    const options = {
+      method: 'GET' as Method,
+      headers: {Authorization: `Bearer ${accessToken}`},
+      url,
+    };
+    const {data} = await request(options);
+    permissions = data;
+    return JSON.parse(permissions);
+  } catch (error) {
+    return null;
+  }
+};
+
 export default {
   getUserProfile,
   updateUserProfile,
   createUserProfile,
+  getPermmissions,
 };
