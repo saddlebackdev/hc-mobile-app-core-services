@@ -8,7 +8,7 @@ import {setItem, getItem, removeItem} from './storageService';
 export const login = async (
   config: any,
   storageType: string,
-  cb: () => string,
+  cb?: () => string ,
 ): Promise<any> => {
   try {
     const authState = await authorize(config);
@@ -24,7 +24,9 @@ export const login = async (
     );
     await setItem('refreshToken', authState.refreshToken, storageType);
     await setItem('uniqueId', idTokenJSON.sub, storageType);
-    cb();
+    if(cb) {
+      cb();
+    }
     return Promise.resolve();
   } catch (error) {
     // Failed to login
@@ -35,6 +37,8 @@ export const login = async (
 export const isLoggedIn = async (): Promise<boolean> => {
   try {
     const accessToken = await getItem('accessToken', 'asyncStorage');
+    let isExpiredAccessToken = false;
+
     const accessTokenExpirationDate = await getItem(
       'accessTokenExpirationDate',
       'asyncStorage',
@@ -44,10 +48,12 @@ export const isLoggedIn = async (): Promise<boolean> => {
       return false;
     }
 
-    const isExpiredAccessToken = moment()
+    if(!_.isEmpty(accessTokenExpirationDate)) {
+      isExpiredAccessToken = moment()
       .utc()
       .isAfter(accessTokenExpirationDate);
-
+    }
+    
     if (isExpiredAccessToken) {
       return false;
     }
@@ -57,22 +63,22 @@ export const isLoggedIn = async (): Promise<boolean> => {
   }
 };
 
-export const logout = async (config: any, cb: () => string): Promise<any> => {
+export const logout = async (config: any, storageType: string, cb?: () => string): Promise<any> => {
   try {
-    let accessToken = await getItem('accessToken', 'asyncStorage');
+    let accessToken = await getItem('accessToken', storageType);
     await revoke(config, {
       tokenToRevoke: accessToken!,
       sendClientId: true,
     });
 
-    await removeItem('accessToken', 'asyncStorage');
-    await removeItem('accessTokenExpirationDate', 'asyncStorage');
-    await removeItem('refreshToken', 'asyncStorage');
-    await removeItem('uniqueId', 'asyncStorage');
-    await removeItem('churchId', 'asyncStorage');
-    await removeItem('PersonQrCode', 'asyncStorage');
-
-    cb();
+    await removeItem('accessToken', storageType);
+    await removeItem('accessTokenExpirationDate', storageType);
+    await removeItem('refreshToken', storageType);
+    await removeItem('uniqueId', storageType);
+    await removeItem('churchId', storageType);
+    if(cb) {
+      cb();
+    }
     accessToken = '';
     return Promise.resolve();
   } catch (error) {
@@ -90,6 +96,10 @@ export const getAccessToken = async (): Promise<string | null> => {
     return null;
   }
 
+  if(!authToken) {
+    return null;
+  }
+  
   return authToken;
 };
 

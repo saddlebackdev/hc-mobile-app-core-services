@@ -5,6 +5,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
     return new Promise((resolve, reject) => {
       db[item] = value;
       resolve(value);
+      console.log(db);
     });
   },
   getItem: (item, value = null) => {
