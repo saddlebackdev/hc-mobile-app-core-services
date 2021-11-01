@@ -4,7 +4,7 @@ import axios from 'axios';
 import {login, isLoggedIn, logout, getAccessToken} from '../authService';
 import {setItem, getItem, removeItem} from '../storageService';
 
-const userData ={
+const userData = {
     "preferredService": null,
     "id": 7779910,
     "profilePictureUrl": null,
@@ -115,6 +115,15 @@ describe('UserProfileService', () => {
     (axios as unknown as jest.Mock).mockResolvedValueOnce({status:200, data:userData});
     const userLogin = await login({}, 'asyncStorage');
     const mock = await getUserProfile('testurl');
+    expect(axios).toHaveBeenCalled();
+    expect(mock).toEqual(userData);
+  });
+  
+  it('createUserProfile should return user data from api', async () => {
+    (axios as unknown as jest.Mock).mockResolvedValueOnce({status:200, data:userData});
+    const userLogin = await login({}, 'asyncStorage');
+    const mock = await createUserProfile('testurl', userData);
+    expect(axios).toHaveBeenCalled();
     expect(mock).toEqual(userData);
   });
 });
