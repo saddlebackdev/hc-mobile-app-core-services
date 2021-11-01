@@ -1,4 +1,4 @@
-// npx jest ./src/__tests__/authService.test.tsx
+// npx jest ./src/coreServices/__tests__/authService.test.ts
 import {login, isLoggedIn, logout, getAccessToken} from '../authService';
 import {setItem, getItem, removeItem} from '../storageService';
 
