@@ -61,9 +61,9 @@ export const getUserProfile = async (url: string) => {
       url,
     };
 
-    const {data} = await request(options);
+    const {data}  = await request(options);
     user = data;
-    return JSON.parse(user.toString());
+    return user;
   } catch (error) {
     return null;
   }
