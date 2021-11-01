@@ -107,7 +107,6 @@ jest.mock('axios');
 
 describe('UserProfileService', () => {
   it('getUserProfile should return null if no  access token is found', async () => {
-   
     const mock = await getUserProfile('testurl');
     expect(mock).toEqual(null);
   });
