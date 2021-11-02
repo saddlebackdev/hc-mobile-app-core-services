@@ -40,3 +40,9 @@ export const removeItem = async (key: string, type: string) => {
   }
   return value;
 };
+
+export default {
+  setItem,
+  getItem,
+  removeItem,
+};
