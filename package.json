@@ -1,5 +1,5 @@
 {
-  "name": "hc-mobile-app-ui",
+  "name": "hc-mobile-app-core-services",
   "version": "0.0.1",
   "main": "./source/index.ts",
   "scripts": {
