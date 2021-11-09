@@ -82,16 +82,15 @@ const pushBack = (params :object) => {
 
 const getIndexAndRoute = () => {
     const { index, routes } = _navigator.current!.getRootState()
-
     return { index, routes };
 };
 
-const getCurrentRoute = () => {
-    const route = _navigator.getCurrentRoute();
-    return route;
+const getCurrentRoute = () :string => {
+    const route = _navigator.current!.getCurrentRoute();
+    return route?.name || '';
 };
 
-const getPastRoute = () => {
+const getPastRoute = () :string => {
     const { index, routes } = getIndexAndRoute();
     const route = routes[routes.length - 1];
 
