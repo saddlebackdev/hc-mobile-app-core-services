@@ -1,8 +1,7 @@
 {
-  "name": "awesometsproject",
+  "name": "hc-mobile-app-core-services",
   "version": "0.0.2",
   "main": "src/index.js",
-  "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
