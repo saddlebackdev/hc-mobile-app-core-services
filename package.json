@@ -1,7 +1,7 @@
 {
   "name": "hc-mobile-app-core-services",
-  "version": "0.0.1",
-  "main": "./source/index.ts",
+  "version": "0.0.2",
+  "main": "src/index.js",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -13,6 +13,8 @@
     "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-native-firebase/app": "^12.9.2",
     "@react-native-firebase/messaging": "^12.9.2",
+    "@react-navigation/native": "^6.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
     "axios": "^0.23.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
@@ -24,24 +26,24 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
-    "@react-native-community/eslint-config": "^2.0.0",
+    "@react-native-community/eslint-config": "^3.0.1",
     "@testing-library/jest-native": "^4.0.2",
     "@testing-library/react-native": "^8.0.0",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.65.0",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^26.6.3",
-    "eslint": "^7.14.0",
+    "eslint": "^8.2.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
-    "prettier": "^2.4.1",
-    "lint-staged": "^11.2.0",
     "husky": "^7.0.2",
     "jest": "^26.6.3",
+    "lint-staged": "^11.2.0",
     "metro-react-native-babel-preset": "^0.66.2",
+    "prettier": "^2.4.1",
     "react-test-renderer": "17.0.2",
     "typescript": "^3.8.3"
   },
@@ -53,7 +55,9 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
     ],
-    "setupFiles": ["<rootDir>/tests/setup.js"],
+    "setupFiles": [
+      "<rootDir>/tests/setup.js"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",

@@ -15,7 +15,7 @@ interface User {
   nickName?: string | null;
   fullName?: string | null;
   gender?: string | null;
-  maritalStatusId?: number| null;
+  maritalStatusId?: number | null;
   maritalStatus?: string | null;
   membershipStatusId?: number | null;
   membershipStatus?: string | null;
@@ -61,7 +61,7 @@ export const getUserProfile = async (url: string) => {
       url,
     };
 
-    const {data}  = await request(options);
+    const {data} = await request(options);
     user = data;
     return user;
   } catch (error) {

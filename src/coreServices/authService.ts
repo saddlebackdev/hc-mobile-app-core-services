@@ -8,10 +8,11 @@ import {setItem, getItem, removeItem} from './storageService';
 export const login = async (
   config: any,
   storageType: string,
-  cb?: () => string ,
+  cb?: () => string,
 ): Promise<any> => {
   try {
     const authState = await authorize(config);
+    // eslint-disable-next-line prefer-destructuring
     const jwtBody = authState.idToken.split('.')[1];
     const base64 = jwtBody.replace('-', '+').replace('_', '/');
     const decodedJwt = Buffer.from(base64, 'base64');
@@ -24,7 +25,7 @@ export const login = async (
     );
     await setItem('refreshToken', authState.refreshToken, storageType);
     await setItem('uniqueId', idTokenJSON.sub, storageType);
-    if(cb) {
+    if (cb) {
       cb();
     }
     return Promise.resolve();
@@ -48,12 +49,10 @@ export const isLoggedIn = async (): Promise<boolean> => {
       return false;
     }
 
-    if(!_.isEmpty(accessTokenExpirationDate)) {
-      isExpiredAccessToken = moment()
-      .utc()
-      .isAfter(accessTokenExpirationDate);
+    if (!_.isEmpty(accessTokenExpirationDate)) {
+      isExpiredAccessToken = moment().utc().isAfter(accessTokenExpirationDate);
     }
-    
+
     if (isExpiredAccessToken) {
       return false;
     }
@@ -63,7 +62,11 @@ export const isLoggedIn = async (): Promise<boolean> => {
   }
 };
 
-export const logout = async (config: any, storageType: string, cb?: () => string): Promise<any> => {
+export const logout = async (
+  config: any,
+  storageType: string,
+  cb?: () => string,
+): Promise<any> => {
   try {
     let accessToken = await getItem('accessToken', storageType);
     await revoke(config, {
@@ -76,7 +79,7 @@ export const logout = async (config: any, storageType: string, cb?: () => string
     await removeItem('refreshToken', storageType);
     await removeItem('uniqueId', storageType);
     await removeItem('churchId', storageType);
-    if(cb) {
+    if (cb) {
       cb();
     }
     accessToken = '';
@@ -96,10 +99,10 @@ export const getAccessToken = async (): Promise<string | null> => {
     return null;
   }
 
-  if(!authToken) {
+  if (!authToken) {
     return null;
   }
-  
+
   return authToken;
 };
 

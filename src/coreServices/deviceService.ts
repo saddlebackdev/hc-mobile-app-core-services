@@ -6,7 +6,7 @@ export const isAndroid = Platform.OS === 'android';
 export const deviceId = getUniqueId();
 
 export default {
-    isIos,
-    isAndroid,
-    deviceId
-}
+  isIos,
+  isAndroid,
+  deviceId,
+};
