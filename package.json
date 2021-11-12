@@ -1,6 +1,6 @@
 {
   "name": "hc-mobile-app-core-services",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A nice greeter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
