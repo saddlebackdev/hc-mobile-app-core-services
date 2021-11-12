@@ -75,7 +75,7 @@ export const getCurrentRoute = (): string => {
 };
 
 const getPastRoute = (): string => {
-  const {index, routes} = getIndexAndRoute();
+  const {routes} = getIndexAndRoute();
   const route = routes[routes.length - 1];
 
   if (route) {
