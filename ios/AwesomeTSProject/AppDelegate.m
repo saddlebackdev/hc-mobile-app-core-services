@@ -8,9 +8,16 @@
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
 #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
+#import <RNAppAuthAuthorizationFlowManager.h>
+#import <AppAuth/AppAuth.h>
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
+
+@interface AppDelegate()<RNAppAuthAuthorizationFlowManager> {
+  id <OIDAuthorizationFlowSession> _currentSession;
+}
+@end
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -24,6 +31,10 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 
 @implementation AppDelegate
+
+-(void)setCurrentAuthorizationFlowSession:(id<OIDAuthorizationFlowSession>)session {
+  _currentSession = session;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -48,6 +59,10 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
