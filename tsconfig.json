@@ -15,7 +15,7 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "baseUrl": "src",
-    "outDir": "dist",
+    "outDir": "lib/esm",
     "noEmitHelpers": true,
     "importHelpers": true,
     "experimentalDecorators": true,
@@ -26,7 +26,7 @@
   },
   "include": ["src"],
   "exclude": [
-    "dist",
+    "lib",
     "node_modules",
     "babel.config.js",
     "metro.config.js",

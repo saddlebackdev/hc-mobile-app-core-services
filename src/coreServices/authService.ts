@@ -1,8 +1,8 @@
 import {Buffer} from 'buffer';
 import {authorize, revoke} from 'react-native-app-auth';
 // @ts-ignore
-import _ from 'lodash';
-import moment from 'moment';
+import * as _ from 'lodash';
+import * as moment from 'moment';
 import {setItem, getItem, removeItem} from './storageService';
 
 export const login = async (
