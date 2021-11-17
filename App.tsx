@@ -26,6 +26,28 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import authService from './src/coreServices/authService';
+
+const config = {
+  issuer: 'https://identity-dev.saddleback.com',
+  clientId: 'member-engagement',
+  redirectUrl: 'io.identityserver.demo:/oauthredirect',
+  additionalParameters: {
+    prompt: 'login',
+  },
+  scopes: [
+    'openid',
+    'profile',
+    'email',
+    'offline_access',
+    'hc:internal-systems',
+    'hc:connection-question-answer-read',
+    'hc:connection-question-answer-create',
+    'hc:connection-question-read',
+    'hc:people-credentials-manage',
+    'hc:introspect',
+  ],
+};
 
 const Section: React.FC<{
   title: string;
@@ -62,6 +84,10 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const loginTemp = () => {
+    authService.login(config, 'asyncStorage');
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -73,6 +99,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <Text onPress={loginTemp}>testing</Text>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.

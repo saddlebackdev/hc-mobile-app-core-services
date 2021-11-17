@@ -12,6 +12,7 @@ export const login = async (
 ): Promise<any> => {
   try {
     const authState = await authorize(config);
+    console.log('test');
     // eslint-disable-next-line prefer-destructuring
     const jwtBody = authState.idToken.split('.')[1];
     const base64 = jwtBody.replace('-', '+').replace('_', '/');
