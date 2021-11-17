@@ -26,7 +26,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import authService from './src/coreServices/authService';
+import authService from './dist/authService.js';
 
 const config = {
   issuer: 'https://identity-dev.saddleback.com',
@@ -85,6 +85,7 @@ const App = () => {
   };
 
   const loginTemp = () => {
+    console.log('abcd');
     authService.login(config, 'asyncStorage');
   };
 

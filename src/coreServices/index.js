@@ -1,4 +1,4 @@
-export {default as DeviceService} from './deviceService';
-export {default as AuthService} from './authService';
-export {default as StorageService} from './storageService';
-export {default as UserProfileService} from './userProfileService';
+export { DeviceService } from './deviceService';
+export { AuthService } from './authService';
+export { StorageService } from './storageService';
+export { UserProfileService} from './userProfileService';
