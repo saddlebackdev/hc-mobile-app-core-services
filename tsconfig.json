@@ -18,7 +18,6 @@
     "noUnusedLocals": true,
     "noImplicitAny": false,
     "incremental": true,
-    "noEmit": true,
     "isolatedModules": false,
     "strict": false,
     "moduleResolution": "node",

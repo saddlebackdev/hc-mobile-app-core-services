@@ -105,10 +105,3 @@ export const getAccessToken = async (): Promise<string | null> => {
 
   return authToken;
 };
-
-export default {
-  login,
-  logout,
-  isLoggedIn,
-  getAccessToken,
-};

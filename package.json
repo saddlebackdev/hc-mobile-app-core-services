@@ -2,8 +2,8 @@
   "name": "hc-mobile-app-core-services",
   "version": "0.0.4",
   "description": "A nice greeter",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/coreServices/index.js",
+  "types": "dist/src/coreServices/index.d.ts",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
