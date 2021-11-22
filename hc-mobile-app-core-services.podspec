@@ -15,6 +15,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/saddlebackdev/hc-mobile-app-core-services.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/AwesomeTSProject/*.{h,m}"
   s.dependency 'React-Core'
-  s.dependency 'RNAppAuth'
   s.dependency  'AppAuth'
 end
