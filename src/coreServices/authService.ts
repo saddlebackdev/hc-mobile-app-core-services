@@ -1,8 +1,8 @@
 import {Buffer} from 'buffer';
 import {authorize, revoke} from 'react-native-app-auth';
 // @ts-ignore
-import * as _ from 'lodash';
-import * as moment from 'moment';
+import _ from 'lodash';
+import moment from 'moment';
 import {setItem, getItem, removeItem} from './storageService';
 
 export const login = async (
@@ -12,7 +12,7 @@ export const login = async (
 ): Promise<any> => {
   try {
     const authState = await authorize(config);
-    console.log('test');
+    console.log('test3');
     // eslint-disable-next-line prefer-destructuring
     const jwtBody = authState.idToken.split('.')[1];
     const base64 = jwtBody.replace('-', '+').replace('_', '/');
@@ -32,6 +32,7 @@ export const login = async (
     return Promise.resolve();
   } catch (error) {
     // Failed to login
+    console.log(error);
     return Promise.reject();
   }
 };
@@ -105,11 +106,4 @@ export const getAccessToken = async (): Promise<string | null> => {
   }
 
   return authToken;
-};
-
-export default {
-  login,
-  logout,
-  isLoggedIn,
-  getAccessToken,
 };

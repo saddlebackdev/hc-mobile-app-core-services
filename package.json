@@ -4,6 +4,8 @@
   "description": "A nice greeter",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "author": "bittu rauniyar",
+  "homepage": "https://github.com/saddlebackdev/hc-mobile-app-core-services",
   "types": "./lib/esm/index.d.ts",
   "files": [
     "/lib"
@@ -27,15 +29,16 @@
     "buffer": "^6.0.3",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "react": "17.0.2",
-    "react-native": "0.66.0",
     "react-native-app-auth": "^6.4.0",
     "react-native-device-info": "^8.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
+    "react-native-app-auth": "^6.4.0",
     "@react-native-community/eslint-config": "^3.0.1",
+    "react": "17.0.2",
+    "react-native": "0.66.0",
     "@testing-library/jest-native": "^4.0.2",
     "@testing-library/react-native": "^8.0.0",
     "@types/jest": "^26.0.23",
@@ -55,6 +58,11 @@
     "prettier": "^2.4.1",
     "react-test-renderer": "17.0.2",
     "typescript": "^4.3.2"
+  },
+  "peerDependencies": {
+    "react-native-app-auth":  "*",
+    "react-native":  "*",
+    "react":  "*"
   },
   "resolutions": {
     "@types/react": "^17"
