@@ -1,1 +1,0 @@
-# hc-mobile-app-core-services
