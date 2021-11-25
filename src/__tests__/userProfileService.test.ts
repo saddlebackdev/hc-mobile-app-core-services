@@ -1,4 +1,4 @@
-// npx jest ./src/coreServices/__tests__/userProfileService.test.ts
+// npx jest ./src/__tests__/userProfileService.test.ts
 import {createUserProfile, getUserProfile} from '../userProfileService';
 import axios from 'axios';
 import {login} from '../authService';

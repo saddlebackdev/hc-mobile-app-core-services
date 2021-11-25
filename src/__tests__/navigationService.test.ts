@@ -1,4 +1,4 @@
-// npx jest ./src/coreServices/__tests__/navigationService.test.ts
+// npx jest ./src/__tests__/navigationService.test.ts
 import {
   back,
   push,

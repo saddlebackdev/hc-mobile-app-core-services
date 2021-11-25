@@ -1,4 +1,4 @@
-// npx jest ./src/coreServices/__tests__/storageService.test.ts
+// npx jest ./src/__tests__/storageService.test.ts
 import {setItem, getItem, removeItem} from '../storageService';
 
 describe('StorageService', () => {
