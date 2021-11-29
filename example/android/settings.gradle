@@ -1,0 +1,6 @@
+rootProject.name = 'HcMobileAppCoreServicesExample'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+
+include ':hcmobileappcoreservices'
+project(':hcmobileappcoreservices').projectDir = new File(rootProject.projectDir, '../../android')
