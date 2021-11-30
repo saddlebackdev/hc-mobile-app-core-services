@@ -16,6 +16,7 @@ export const login = async (
     const base64 = jwtBody.replace('-', '+').replace('_', '/');
     const decodedJwt = Buffer.from(base64, 'base64');
     const idTokenJSON = JSON.parse(decodedJwt.toString());
+    const uniqueId = idTokenJSON.sub;
     await setItem('accessToken', authState.accessToken, storageType);
     await setItem(
       'accessTokenExpirationDate',
@@ -23,15 +24,14 @@ export const login = async (
       'asyncStorage'
     );
     await setItem('refreshToken', authState.refreshToken, storageType);
-    await setItem('uniqueId', idTokenJSON.sub, storageType);
+    await setItem('uniqueId', uniqueId, storageType);
     if (cb) {
       cb();
     }
-    return Promise.resolve();
+    return Promise.resolve({...authState, uniqueId });
   } catch (error) {
     // Failed to login
-    console.log(error);
-    return Promise.reject();
+    return Promise.reject(error);
   }
 };
 

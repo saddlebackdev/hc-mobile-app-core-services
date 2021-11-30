@@ -1,6 +1,6 @@
 import request, { Method } from 'axios';
 // @ts-ignore
-import AuthService from './authService';
+import { getAccessToken } from './authService';
 
 interface User {
   preferredService?: string | null;
@@ -49,7 +49,7 @@ interface User {
 export const getUserProfile = async (url: string) => {
   let user: any = null;
   try {
-    const accessToken = await AuthService.getAccessToken();
+    const accessToken = await getAccessToken();
 
     if (!accessToken) {
       return null;
@@ -72,7 +72,7 @@ export const getUserProfile = async (url: string) => {
 export const updateUserProfile = async (url: string, user: User) => {
   let updatedUser: any = null;
   try {
-    const accessToken = await AuthService.getAccessToken();
+    const accessToken = await getAccessToken();
 
     if (!accessToken) {
       return null;
@@ -95,7 +95,7 @@ export const updateUserProfile = async (url: string, user: User) => {
 
 export const createUserProfile = async (url: string, user: User) => {
   try {
-    const accessToken = await AuthService.getAccessToken();
+    const accessToken = await getAccessToken();
 
     if (!accessToken) {
       return null;
@@ -115,10 +115,10 @@ export const createUserProfile = async (url: string, user: User) => {
   }
 };
 
-export const getPermmissions = async (url: string) => {
+export const getPermissions = async (url: string) => {
   let permissions: any = null;
   try {
-    const accessToken = await AuthService.getAccessToken();
+    const accessToken = await getAccessToken();
 
     if (!accessToken) {
       return null;
@@ -140,7 +140,7 @@ export const getPermmissions = async (url: string) => {
 export const getPersonCredentials = async (url: string) => {
   let credentials: any = null;
   try {
-    const accessToken = await AuthService.getAccessToken();
+    const accessToken = await getAccessToken();
 
     if (!accessToken) {
       return null;
@@ -163,6 +163,6 @@ export default {
   getUserProfile,
   updateUserProfile,
   createUserProfile,
-  getPermmissions,
+  getPermissions,
   getPersonCredentials,
 };
