@@ -64,7 +64,7 @@ const pushBack = (params: object) => {
   _navigator.dispatch(StackActions.push(prevRoute, params));
 };
 
-const getIndexAndRoute = () => {
+export const getIndexAndRoute = () => {
   const { index, routes } = _navigator.current!.getRootState();
   return { index, routes };
 };
@@ -74,15 +74,16 @@ export const getCurrentRoute = (): string => {
   return route?.name || '';
 };
 
-const getPastRoute = (): string => {
-  const { routes } = getIndexAndRoute();
-  const route = routes[routes.length - 1];
+export const getPastRoute = (): string => {
+  const { index, routes } = getIndexAndRoute();
+    const currentRoutes = routes[index]?.state?.routes;
+    const route = currentRoutes![currentRoutes!.length - 1];
 
-  if (route) {
-    return route.name;
-  }
+    if (route) {
+        return route.name;
+    }
 
-  return '';
+    return '';
 };
 
 const reset = (routeName: string, params: object) => {
