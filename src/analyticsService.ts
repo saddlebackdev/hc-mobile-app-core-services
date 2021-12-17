@@ -1,5 +1,3 @@
-import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import { ReactNativePlugin } from '@microsoft/applicationinsights-react-native';
 import NavigationService from './navigationService';
 
 let instrumentationKey:string = '';
@@ -12,14 +10,8 @@ const setInstrumentationKey = (keyValue:string): void => {
     instrumentationKey = keyValue;
 }
 
-const setAndLoadAppInsights = (): void => {
-    const RNPlugin = new ReactNativePlugin();
-    appInsights = new ApplicationInsights({
-        config: {
-            instrumentationKey: instrumentationKey,
-            extensions: [RNPlugin],
-        },
-    });
+const setAndLoadAppInsights = (appInsightsConfig:any): void => {
+    appInsights = appInsightsConfig;
     appInsights.loadAppInsights();
 }
 
