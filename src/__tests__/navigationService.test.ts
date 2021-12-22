@@ -8,7 +8,7 @@ import {
   getCurrentRoute,
   replace,
 } from '../navigationService';
-import {CommonActions, StackActions} from '@react-navigation/native';
+import { CommonActions, StackActions } from '@react-navigation/native';
 
 const navigationMockRef = {
   dispatch: jest.fn,
@@ -38,14 +38,14 @@ describe('NavigationService', () => {
   });
 
   it('should dispatch navigate form CommonActions Service', async () => {
-    navigate('testRoute', {option1: 'option1'});
+    navigate('testRoute', { option1: 'option1' });
     expect(CommonActions.navigate).toBeCalledWith('testRoute', {
       option1: 'option1',
     });
   });
 
   it('should dispatch replace form StackActions Service', async () => {
-    replace('testRoute', {option1: 'option1'});
+    replace('testRoute', { option1: 'option1' });
     expect(StackActions.replace).toBeCalledWith('testRoute', {
       option1: 'option1',
     });

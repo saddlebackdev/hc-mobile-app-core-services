@@ -76,14 +76,14 @@ export const getCurrentRoute = (): string => {
 
 export const getPastRoute = (): string => {
   const { routes } = getIndexAndRoute();
-  let routeStack:any = [...routes]
-  while(routeStack[0].state){
+  let routeStack: Array<any> = [...routes];
+  while (routeStack[0].state) {
     routeStack = routeStack[0].state?.routes;
   }
   const route = routeStack![routeStack!.length - 1];
 
   if (route) {
-      return route.name;
+    return route.name;
   }
 
   return '';

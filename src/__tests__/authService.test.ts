@@ -1,6 +1,6 @@
 // npx jest ./src/__tests__/authService.test.ts
-import {login, isLoggedIn, logout, getAccessToken} from '../authService';
-import {getItem} from '../storageService';
+import { login, isLoggedIn, logout, getAccessToken } from '../authService';
+import { getItem } from '../storageService';
 
 const accessTokenValue = 'mkDEr88ICoXsDjfAS7Hesg';
 const expirationDateValue = '2022-11-28T11:09:45Z';

@@ -1,7 +1,7 @@
 // npx jest ./src/__tests__/userProfileService.test.ts
-import {createUserProfile, getUserProfile} from '../userProfileService';
+import { createUserProfile, getUserProfile } from '../userProfileService';
 import axios from 'axios';
-import {login} from '../authService';
+import { login } from '../authService';
 
 const userData = {
   preferredService: null,

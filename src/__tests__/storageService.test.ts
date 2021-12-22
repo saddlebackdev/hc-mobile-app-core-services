@@ -1,5 +1,5 @@
 // npx jest ./src/__tests__/storageService.test.ts
-import {setItem, getItem, removeItem} from '../storageService';
+import { setItem, getItem, removeItem } from '../storageService';
 
 describe('StorageService', () => {
   it('setItem function should store value item in async storage', async () => {
