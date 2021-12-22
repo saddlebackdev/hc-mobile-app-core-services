@@ -75,15 +75,18 @@ export const getCurrentRoute = (): string => {
 };
 
 export const getPastRoute = (): string => {
-  const { index, routes } = getIndexAndRoute();
-    const currentRoutes = routes[index]?.state?.routes;
-    const route = currentRoutes![currentRoutes!.length - 1];
+  const { routes } = getIndexAndRoute();
+  let routeStack:any = [...routes]
+  while(routeStack[0].state){
+    routeStack = routeStack[0].state?.routes;
+  }
+  const route = routeStack![routeStack!.length - 1];
 
-    if (route) {
-        return route.name;
-    }
+  if (route) {
+      return route.name;
+  }
 
-    return '';
+  return '';
 };
 
 const reset = (routeName: string, params: object) => {

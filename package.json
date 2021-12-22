@@ -47,8 +47,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-react-native": "^2.4.2",
-    "@microsoft/applicationinsights-web": "^2.7.2",
     "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-navigation/native": "^6.0.6",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
