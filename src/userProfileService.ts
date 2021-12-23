@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import request, { Method } from 'axios';
 // @ts-ignore
 import { getAccessToken } from './authService';
