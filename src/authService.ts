@@ -28,7 +28,7 @@ export const login = async (
     if (cb) {
       cb();
     }
-    return Promise.resolve({...authState, uniqueId });
+    return Promise.resolve({ ...authState, uniqueId });
   } catch (error) {
     // Failed to login
     return Promise.reject(error);

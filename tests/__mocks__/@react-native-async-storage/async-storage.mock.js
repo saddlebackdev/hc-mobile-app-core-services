@@ -12,7 +12,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
       resolve(db[item]);
     });
   },
-  removeItem: item => {
+  removeItem: (item) => {
     return new Promise((resolve, reject) => {
       resolve(delete db[item]);
     });

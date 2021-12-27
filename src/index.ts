@@ -3,5 +3,13 @@ import * as StorageService from './storageService';
 import * as UserProfileService from './userProfileService';
 import * as DeviceService from './deviceService';
 import * as NavigationService from './navigationService';
+import * as AnalyticsService from './analyticsService';
 
-export { DeviceService, AuthService, StorageService, UserProfileService, NavigationService };
+export {
+  DeviceService,
+  AnalyticsService,
+  AuthService,
+  StorageService,
+  UserProfileService,
+  NavigationService,
+};
