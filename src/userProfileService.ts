@@ -1,163 +1,76 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import request, { Method } from 'axios';
+// Modules
+import Axios from 'axios';
+
 // @ts-ignore
 import { getAccessToken } from './authService';
 
-interface User {
-  preferredService?: string | null;
-  profilePictureUrl?: string | null;
-  profilePhotoUrl?: string | null;
-  churchEntityKnown?: boolean | null;
-  churchEntityId?: number | null;
-  churchEntityName?: string | null;
-  prefix?: string | null;
-  middleName?: string | null;
-  suffix?: string | null;
-  nickName?: string | null;
-  fullName?: string | null;
-  gender?: string | null;
-  maritalStatusId?: number | null;
-  maritalStatus?: string | null;
-  membershipStatusId?: number | null;
-  membershipStatus?: string | null;
-  disengagementReason?: string | null;
-  birthDate?: string | null;
-  deceasedDate?: string | null;
-  age?: number | null;
-  allergies?: string | null;
-  gradeLevel?: string | null;
-  departmentId?: number | null;
-  departmentName?: string | null;
-  departmentChurchEntityId?: number | null;
-  departmentChurchEntityName?: string | null;
-  preferredServiceEventId?: number | null;
-  modifiedDate?: number | null;
-  isAdult?: boolean | null;
-  isChild?: boolean | null;
-  isStudent?: boolean | null;
-  milestones?: Array<any> | null;
-  addresses?: Array<any> | null;
-  emails?: Array<any> | null;
-  phones?: Array<any> | null;
-  occupations?: Array<any> | null;
-  contactPreferences?: Object | null;
-  emergencyContacts?: Array<any> | null;
-  id: number | null;
-  firstName: string | null;
-  lastName: string | null;
-}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { IUser } from './interfaces/user.interface';
 
-export const getUserProfile = async (url: string) => {
-  let user: any = null;
-  try {
-    const accessToken = await getAccessToken();
+/**
+ * @method getUserProfile
+ * @description Gets the user profile from the server
+ */
+export const getUserProfile = async (url: string): Promise<unknown> => {
+  const accessToken = await getAccessToken();
 
-    if (!accessToken) {
-      return null;
-    }
-
-    const options = {
-      method: 'GET' as Method,
-      headers: { Authorization: `Bearer ${accessToken}` },
-      url,
-    };
-
-    const { data } = await request(options);
-    user = data;
-    return user;
-  } catch (error) {
-    return null;
-  }
+  return await Axios.get(url, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 };
 
-export const updateUserProfile = async (url: string, user: User) => {
-  let updatedUser: any = null;
-  try {
-    const accessToken = await getAccessToken();
+/**
+ * @method updateUserProfile
+ * @description Updates the user profile with the supplied changes
+ */
+export const updateUserProfile = async (
+  url: string,
+  user: Partial<IUser>
+): Promise<unknown> => {
+  const accessToken = await getAccessToken();
 
-    if (!accessToken) {
-      return null;
-    }
-
-    const options = {
-      method: 'PUT' as Method,
-      headers: { Authorization: `Bearer ${accessToken}` },
-      data: JSON.stringify(user),
-      url,
-    };
-
-    const { data } = await request(options);
-    updatedUser = data;
-    return JSON.parse(updatedUser.toString());
-  } catch (error) {
-    return null;
-  }
+  return await Axios.put(url, JSON.stringify(user), {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 };
 
-export const createUserProfile = async (url: string, user: User) => {
-  try {
-    const accessToken = await getAccessToken();
+/**
+ * @method createUserProfile
+ * @description Creates a new user profile
+ */
+export const createUserProfile = async (
+  url: string,
+  user: IUser
+): Promise<unknown> => {
+  const accessToken = await getAccessToken();
 
-    if (!accessToken) {
-      return null;
-    }
-
-    const options = {
-      method: 'POST' as Method,
-      headers: { Authorization: `Bearer ${accessToken}` },
-      data: JSON.stringify(user),
-      url,
-    };
-
-    const { data } = await request(options);
-    return data;
-  } catch (error) {
-    return null;
-  }
+  return await Axios.post(url, JSON.stringify(user), {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 };
 
-export const getPermissions = async (url: string) => {
-  let permissions: any = null;
-  try {
-    const accessToken = await getAccessToken();
+/**
+ * @method getPermissions
+ * @description Get permissions for the user
+ */
+export const getPermissions = async (url: string): Promise<unknown> => {
+  const accessToken = await getAccessToken();
 
-    if (!accessToken) {
-      return null;
-    }
-
-    const options = {
-      method: 'GET' as Method,
-      headers: { Authorization: `Bearer ${accessToken}` },
-      url,
-    };
-    const { data } = await request(options);
-    permissions = data;
-    return JSON.parse(permissions);
-  } catch (error) {
-    return null;
-  }
+  return await Axios.get(url, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 };
 
-export const getPersonCredentials = async (url: string) => {
-  let credentials: any = null;
-  try {
-    const accessToken = await getAccessToken();
+/**
+ * @method getPersonCredentials
+ * @description Get credentials for the user
+ */
+export const getPersonCredentials = async (url: string): Promise<unknown> => {
+  const accessToken = await getAccessToken();
 
-    if (!accessToken) {
-      return null;
-    }
-
-    const options = {
-      method: 'GET' as Method,
-      headers: { Authorization: `Bearer ${accessToken}` },
-      url,
-    };
-    const { data } = await request(options);
-    credentials = data;
-    return JSON.parse(credentials);
-  } catch (error) {
-    return null;
-  }
+  return await Axios.get(url, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 };
 
 export default {
