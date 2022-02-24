@@ -22,11 +22,12 @@ interface INotifocationAPIData {
 
 export const register = async (url: string): Promise<any> => {
   registerNotificationUrl = url;
-  const { isPushNotificationInstallationActive } =
-    await getPushNotificationDataFromStorage();
+  const storedPushNotificationData = await getPushNotificationDataFromStorage();
 
   if (DeviceService.isIos) {
-    if (isPushNotificationInstallationActive === null) {
+    if (
+      storedPushNotificationData.isPushNotificationInstallationActive === null
+    ) {
       PushNotificationIOS.requestPermissions();
     }
 
@@ -50,18 +51,18 @@ const handleRegistrationEventListener = async (
   token: string
 ): Promise<void> => {
   const alreadyRegistered = false;
-  const { pushNotificationInstallationId } =
-    await getPushNotificationDataFromStorage();
+  const storedPushNotificationData = await getPushNotificationDataFromStorage();
   let deviceRegistrationData: INotifocationAPIData = {
     deviceHandle: token,
     devicePlatform: DeviceService.isIos ? 'iOS' : 'Android',
     deviceId: DeviceService.deviceId,
   };
   if (alreadyRegistered) {
-    deviceRegistrationData.id = pushNotificationInstallationId;
-    updateUserPushNotificationData(deviceRegistrationData);
+    deviceRegistrationData.id =
+      storedPushNotificationData.pushNotificationInstallationId;
+    return updateUserPushNotificationData(deviceRegistrationData);
   } else {
-    createUserPushNotificationData(deviceRegistrationData);
+    return createUserPushNotificationData(deviceRegistrationData);
   }
 };
 
@@ -138,7 +139,7 @@ const updateUserPushNotificationData = async (
 ) => {
   const api = apiUtils.loadApiUtils(registerNotificationUrl);
   const accessToken = await getAccessToken();
-  api
+  return api
     .post(registerNotificationUrl, JSON.stringify(deviceRegistrationData), {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
@@ -157,20 +158,19 @@ const updateUserPushNotificationData = async (
 const deleteUserPushNotificationData = async (url: string) => {
   const api = apiUtils.loadApiUtils(url);
   const accessToken = await getAccessToken();
-  api.delete(deRegisterNotificationUrl, {
+  return api.delete(deRegisterNotificationUrl, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
 };
 
 export const deRegister = async (url: string) => {
-  const {
-    pushNotificationInstallationId,
-    pushNotificationInstallationDeviceHandle,
-    isPushNotificationInstallationActive,
-  } = await getPushNotificationDataFromStorage();
-  let installationId = pushNotificationInstallationId;
-  const installationDeviceHandle = pushNotificationInstallationDeviceHandle;
-  let isInstallationActive = isPushNotificationInstallationActive;
+  const storedPushNotificationData = await getPushNotificationDataFromStorage();
+  let installationId =
+    storedPushNotificationData.pushNotificationInstallationId;
+  const installationDeviceHandle =
+    storedPushNotificationData.pushNotificationInstallationDeviceHandle;
+  let isInstallationActive =
+    storedPushNotificationData.isPushNotificationInstallationActive;
 
   if (isInstallationActive === 'true' && installationId) {
     deleteUserPushNotificationData(url);
