@@ -31,24 +31,29 @@ export const register = async (url: string): Promise<any> => {
       PushNotificationIOS.requestPermissions();
     }
 
-    PushNotificationIOS.addEventListener(
-      'register',
-      handleRegistrationEventListener
-    );
+    return new Promise(function (resolve) {
+      PushNotificationIOS.addEventListener('register', (token) =>
+        handleRegistrationEventListener(token, resolve)
+      );
+    });
+
     // write event listeners for ios
   }
   if (DeviceService.isAndroid) {
     // write event listeners for android
-    messaging()
-      .getToken()
-      .then((fcmToken) => {
-        handleRegistrationEventListener(fcmToken);
-      });
+    return new Promise(function (resolve) {
+      messaging()
+        .getToken()
+        .then((fcmToken) => {
+          handleRegistrationEventListener(fcmToken, resolve);
+        });
+    });
   }
 };
 
 const handleRegistrationEventListener = async (
-  token: string
+  token: string,
+  resolve: Function
 ): Promise<void> => {
   const alreadyRegistered = false;
   const storedPushNotificationData = await getPushNotificationDataFromStorage();
@@ -60,9 +65,9 @@ const handleRegistrationEventListener = async (
   if (alreadyRegistered) {
     deviceRegistrationData.id =
       storedPushNotificationData.pushNotificationInstallationId;
-    return updateUserPushNotificationData(deviceRegistrationData);
+    return resolve(updateUserPushNotificationData(deviceRegistrationData));
   } else {
-    return createUserPushNotificationData(deviceRegistrationData);
+    return resolve(createUserPushNotificationData(deviceRegistrationData));
   }
 };
 
@@ -116,9 +121,9 @@ const getPushNotificationDataFromStorage =
 const createUserPushNotificationData = async (
   deviceRegistrationData: INotifocationAPIData
 ) => {
-  const api = apiUtils.loadApiUtils(registerNotificationUrl);
+  const api = apiUtils.createApi(registerNotificationUrl);
   const accessToken = await getAccessToken();
-  api
+  return api
     .post(registerNotificationUrl, JSON.stringify(deviceRegistrationData), {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
@@ -137,7 +142,7 @@ const createUserPushNotificationData = async (
 const updateUserPushNotificationData = async (
   deviceRegistrationData: INotifocationAPIData
 ) => {
-  const api = apiUtils.loadApiUtils(registerNotificationUrl);
+  const api = apiUtils.createApi(registerNotificationUrl);
   const accessToken = await getAccessToken();
   return api
     .post(registerNotificationUrl, JSON.stringify(deviceRegistrationData), {
@@ -156,7 +161,7 @@ const updateUserPushNotificationData = async (
 };
 
 const deleteUserPushNotificationData = async (url: string) => {
-  const api = apiUtils.loadApiUtils(url);
+  const api = apiUtils.createApi(url);
   const accessToken = await getAccessToken();
   return api.delete(deRegisterNotificationUrl, {
     headers: { Authorization: `Bearer ${accessToken}` },
@@ -184,3 +189,5 @@ export const deRegister = async (url: string) => {
     });
   }
 };
+
+export default { register, deRegister };

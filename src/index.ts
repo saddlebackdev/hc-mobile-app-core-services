@@ -4,6 +4,7 @@ import * as UserProfileService from './userProfileService';
 import * as DeviceService from './deviceService';
 import * as NavigationService from './navigationService';
 import * as AnalyticsService from './analyticsService';
+import * as PushNotificationService from './pushNotificationService';
 
 export {
   DeviceService,
@@ -12,4 +13,5 @@ export {
   StorageService,
   UserProfileService,
   NavigationService,
+  PushNotificationService,
 };
