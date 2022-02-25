@@ -9,6 +9,7 @@ let registerNotificationUrl: string = '';
 let deRegisterNotificationUrl: string = '';
 
 interface INotifocationStorage {
+  // value is not boelean because user can set the value to true and false to set permissions
   isPushNotificationInstallationActive: string | null;
   pushNotificationInstallationId: string | null;
   pushNotificationInstallationDeviceHandle: string | null;
@@ -55,19 +56,34 @@ const handleRegistrationEventListener = async (
   token: string,
   resolve: Function
 ): Promise<void> => {
-  const alreadyRegistered = false;
   const storedPushNotificationData = await getPushNotificationDataFromStorage();
+  const alreadyRegistered: string | null =
+    storedPushNotificationData.isPushNotificationInstallationActive;
   let deviceRegistrationData: INotifocationAPIData = {
     deviceHandle: token,
     devicePlatform: DeviceService.isIos ? 'iOS' : 'Android',
     deviceId: DeviceService.deviceId,
   };
-  if (alreadyRegistered) {
-    deviceRegistrationData.id =
-      storedPushNotificationData.pushNotificationInstallationId;
-    return resolve(updateUserPushNotificationData(deviceRegistrationData));
-  } else {
+  if (alreadyRegistered === null) {
     return resolve(createUserPushNotificationData(deviceRegistrationData));
+  } else if (alreadyRegistered === 'true') {
+    if (
+      token !==
+      storedPushNotificationData.pushNotificationInstallationDeviceHandle
+    ) {
+      deviceRegistrationData.id =
+        storedPushNotificationData.pushNotificationInstallationId;
+      return resolve(updateUserPushNotificationData(deviceRegistrationData));
+    }
+  } else {
+    if (DeviceService.isAndroid) {
+      messaging().onTokenRefresh((newFcmToken) => {
+        deviceRegistrationData.deviceHandle = newFcmToken;
+        deviceRegistrationData.id =
+          storedPushNotificationData.pushNotificationInstallationId;
+        return resolve(updateUserPushNotificationData(deviceRegistrationData));
+      });
+    }
   }
 };
 
@@ -123,9 +139,15 @@ const createUserPushNotificationData = async (
 ) => {
   const api = apiUtils.createApi(registerNotificationUrl);
   const accessToken = await getAccessToken();
+  const headers: any = {
+    'Content-Type': 'application/json;charset=UTF-8',
+  };
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  }
   return api
     .post(registerNotificationUrl, JSON.stringify(deviceRegistrationData), {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: headers,
     })
     .then((res: any) => {
       const isPushNotificationInstallationActive = 'true';
@@ -144,9 +166,15 @@ const updateUserPushNotificationData = async (
 ) => {
   const api = apiUtils.createApi(registerNotificationUrl);
   const accessToken = await getAccessToken();
+  const headers: any = {
+    'Content-Type': 'application/json;charset=UTF-8',
+  };
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  }
   return api
     .post(registerNotificationUrl, JSON.stringify(deviceRegistrationData), {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers,
     })
     .then((res: any) => {
       const isPushNotificationInstallationActive = 'true';
