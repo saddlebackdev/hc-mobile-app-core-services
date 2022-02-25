@@ -1,25 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import DeviceService from './deviceService';
 import StorageService from './storageService';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import messaging from '@react-native-firebase/messaging';
 import apiUtils from './apiUtils';
 import { getAccessToken } from './authService';
+import type {
+  INotifocationStorage,
+  INotifocationAPIData,
+} from './interfaces/pushNotification.interface';
 
 let registerNotificationUrl: string = '';
 let deRegisterNotificationUrl: string = '';
-
-interface INotifocationStorage {
-  // value is not boelean because user can set the value to true and false to set permissions
-  isPushNotificationInstallationActive: string | null;
-  pushNotificationInstallationId: string | null;
-  pushNotificationInstallationDeviceHandle: string | null;
-}
-interface INotifocationAPIData {
-  id?: string | null;
-  deviceHandle: string;
-  devicePlatform: string;
-  deviceId: string;
-}
 
 export const register = async (url: string): Promise<any> => {
   registerNotificationUrl = url;
