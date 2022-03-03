@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-ignore
 import _ from 'lodash';
 import {
@@ -6,6 +7,7 @@ import {
   DrawerActions,
   createNavigationContainerRef,
 } from '@react-navigation/native';
+import type { Route } from '@react-navigation/native';
 
 export let _navigator = createNavigationContainerRef();
 
@@ -70,7 +72,13 @@ export const getIndexAndRoute = () => {
 };
 
 export const getCurrentRoute = (): string => {
-  const route = _navigator.current!.getCurrentRoute();
+  let route: Route<string, object | undefined> | undefined = {
+    key: '',
+    name: '',
+  };
+  if (_navigator.isReady()) {
+    route = _navigator.current!.getCurrentRoute();
+  }
   return route?.name || '';
 };
 
