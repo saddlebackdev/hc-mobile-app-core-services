@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-import { authorize, revoke } from 'react-native-app-auth';
+import { authorize, refresh, revoke } from 'react-native-app-auth';
 // @ts-ignore
 import _ from 'lodash';
 import moment from 'moment';
@@ -90,18 +90,22 @@ export const logout = async (
   }
 };
 
+// Refresh Access Token
+export const refreshAccessToken = async (
+  config: any,
+  refreshToken: string
+): Promise<unknown> => {
+  const result = await refresh(config, { refreshToken });
+
+  return result;
+};
+
+// Get Access Token
 export const getAccessToken = async (): Promise<string | null> => {
-  let authToken: any = null;
+  return await getItem('accessToken', 'asyncStorage');
+};
 
-  try {
-    authToken = await getItem('accessToken', 'asyncStorage');
-  } catch (error) {
-    return null;
-  }
-
-  if (!authToken) {
-    return null;
-  }
-
-  return authToken;
+// Get Refresh Token
+export const getRefreshToken = async (): Promise<string | null> => {
+  return await getItem('refreshToken', 'asyncStorage');
 };
