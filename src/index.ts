@@ -4,6 +4,7 @@ import * as UserProfileService from './userProfileService';
 import * as DeviceService from './deviceService';
 import * as NavigationService from './navigationService';
 import * as AnalyticsService from './analyticsService';
+import * as PushNotificationService from './pushNotificationService';
 import * as ApiUtils from './apiUtils';
 
 // Middlewares
@@ -16,6 +17,7 @@ export {
   StorageService,
   UserProfileService,
   NavigationService,
+  PushNotificationService,
   ApiUtils,
   CircuitBreakerMiddleware,
 };
