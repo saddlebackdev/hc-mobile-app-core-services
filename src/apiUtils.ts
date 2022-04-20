@@ -7,10 +7,29 @@ import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { IExtendedAxiosInstance, IMiddleware } from './apiUtils.types';
 
+const params = {
+  pageSize: 5,
+  page: 0,
+};
+
+const config = {
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+};
+
 // Create API
-export const createApi = (baseURL: string): IExtendedAxiosInstance => {
+export const createApi = (
+  baseURL: string,
+  mockedAbortController?: any
+): IExtendedAxiosInstance => {
   // Create Axios Instance
-  const axiosInstance: AxiosInstance = Axios.create({ baseURL });
+  const axiosInstance: AxiosInstance = Axios.create({
+    baseURL,
+    params,
+    ...config,
+  });
 
   // Middlewares
   const requestSuccessMiddlewares: Array<IMiddleware> = [];
@@ -20,7 +39,7 @@ export const createApi = (baseURL: string): IExtendedAxiosInstance => {
 
   // Note: Need Axios 0.22+
   // eslint-disable-next-line no-undef
-  const abortController = new AbortController();
+  const abortController = mockedAbortController || new AbortController();
 
   // Request Interceptor
   axiosInstance.interceptors.request.use(
@@ -122,5 +141,11 @@ export const createApi = (baseURL: string): IExtendedAxiosInstance => {
   return extendedAxiosInstance;
 };
 
+const abortController = { signal: 'test', abort: () => {} };
+
+export const axios = createApi(
+  'https://hc-dev.saddleback.com/api/',
+  abortController // for unit testing
+);
 // Exports
 export default { createApi };
