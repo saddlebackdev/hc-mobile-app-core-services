@@ -3,32 +3,25 @@ import Axios from 'axios';
 
 // Types
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  AxiosRequestConfig,
+} from 'axios';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { IExtendedAxiosInstance, IMiddleware } from './apiUtils.types';
-
-const params = {
-  pageSize: 5,
-  page: 0,
-};
-
-const config = {
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-  },
-};
 
 // Create API
 export const createApi = (
   baseURL: string,
+  config?: AxiosRequestConfig,
   mockedAbortController?: any
 ): IExtendedAxiosInstance => {
   // Create Axios Instance
   const axiosInstance: AxiosInstance = Axios.create({
     baseURL,
-    params,
-    ...config,
+    ...(!!config && config),
   });
 
   // Middlewares
@@ -141,11 +134,11 @@ export const createApi = (
   return extendedAxiosInstance;
 };
 
-const abortController = { signal: 'test', abort: () => {} };
+// const abortController = { signal: 'test', abort: () => {} };
+// export const axios = createApi(
+//   'https://hc-dev.saddleback.com/api/',
+//   abortController // for unit testing
+// );
 
-export const axios = createApi(
-  'https://hc-dev.saddleback.com/api/',
-  abortController // for unit testing
-);
 // Exports
 export default { createApi };
