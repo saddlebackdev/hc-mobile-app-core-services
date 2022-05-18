@@ -1,4 +1,4 @@
-// npx jest --watch ./src/__tests__/apiPaginationHelper.test.ts
+// npx jest ./src/__tests__/apiPaginationHelper.test.ts
 import ApiPaginationHelper from '../apiPaginationHelper';
 import * as AuthService from '../authService';
 

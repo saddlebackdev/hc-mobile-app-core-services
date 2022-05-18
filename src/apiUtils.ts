@@ -134,11 +134,5 @@ export const createApi = (
   return extendedAxiosInstance;
 };
 
-// const abortController = { signal: 'test', abort: () => {} };
-// export const axios = createApi(
-//   'https://hc-dev.saddleback.com/api/',
-//   abortController // for unit testing
-// );
-
 // Exports
 export default { createApi };
