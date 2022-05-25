@@ -1,6 +1,6 @@
 {
   "name": "hc-mobile-app-core-services",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "react native church app",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
