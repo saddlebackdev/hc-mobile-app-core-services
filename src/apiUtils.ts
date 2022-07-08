@@ -3,14 +3,26 @@ import Axios from 'axios';
 
 // Types
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  AxiosRequestConfig,
+} from 'axios';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { IExtendedAxiosInstance, IMiddleware } from './apiUtils.types';
 
 // Create API
-export const createApi = (baseURL: string): IExtendedAxiosInstance => {
+export const createApi = (
+  baseURL: string,
+  config?: AxiosRequestConfig,
+  mockedAbortController?: any
+): IExtendedAxiosInstance => {
   // Create Axios Instance
-  const axiosInstance: AxiosInstance = Axios.create({ baseURL });
+  const axiosInstance: AxiosInstance = Axios.create({
+    baseURL,
+    ...(!!config && config),
+  });
 
   // Middlewares
   const requestSuccessMiddlewares: Array<IMiddleware> = [];
@@ -20,7 +32,7 @@ export const createApi = (baseURL: string): IExtendedAxiosInstance => {
 
   // Note: Need Axios 0.22+
   // eslint-disable-next-line no-undef
-  const abortController = new AbortController();
+  const abortController = mockedAbortController || new AbortController();
 
   // Request Interceptor
   axiosInstance.interceptors.request.use(

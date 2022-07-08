@@ -6,6 +6,7 @@ import * as NavigationService from './navigationService';
 import * as AnalyticsService from './analyticsService';
 import * as PushNotificationService from './pushNotificationService';
 import * as ApiUtils from './apiUtils';
+import ApiPaginationHelper from './apiPaginationHelper';
 
 // Middlewares
 import * as CircuitBreakerMiddleware from './middlewares/circuitBreakerMiddleware';
@@ -20,4 +21,5 @@ export {
   PushNotificationService,
   ApiUtils,
   CircuitBreakerMiddleware,
+  ApiPaginationHelper,
 };
