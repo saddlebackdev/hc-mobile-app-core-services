@@ -47,6 +47,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
+    "@microsoft/applicationinsights-react-native": "^4.0.1",
+    "@microsoft/applicationinsights-web": "^3.0.4",
     "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-native-community/push-notification-ios": "^1.10.1",
     "@react-native-firebase/app": "^14.5.0",
@@ -59,7 +61,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "react-native-app-auth": "^6.4.0",
-    "react-native-device-info": "^8.4.8"
+    "react-native-device-info": "^10.11.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
