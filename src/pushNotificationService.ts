@@ -54,7 +54,7 @@ const handleRegistrationEventListener = async (
   let deviceRegistrationData: INotifocationAPIData = {
     deviceHandle: token,
     devicePlatform: DeviceService.isIos ? 'iOS' : 'Android',
-    deviceId: DeviceService.deviceId,
+    deviceId: await DeviceService.deviceId,
   };
   if (alreadyRegistered === null) {
     return resolve(createUserPushNotificationData(deviceRegistrationData));
